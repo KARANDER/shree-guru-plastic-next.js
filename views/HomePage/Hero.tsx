@@ -14,19 +14,22 @@ export default function Hero() {
   return (
     <HeroWrapper>
       <Contents>
-        <CustomOverTitle>the coolest, saas product you have ever seen</CustomOverTitle>
-        <Heading>Make your life easier with our SaaS</Heading>
+        <CustomOverTitle>precision engineering for modern manufacturing</CustomOverTitle>
+        <Heading>
+          Powering Modern Industry with <HighlightText>High-Performance Electroplating</HighlightText> Machines
+        </Heading>
         <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, tempora qui. Explicabo voluptate iure ipsum molestias
-          repudiandae perspiciatis nostrum praesentium, unde pariatur tempora magni rem. Necessitatibus facilis obcaecati ratione.
+          Shree Guru Plastic delivers durable, efficient and customized machines trusted by top manufacturers.
         </Description>
         <CustomButtonGroup>
           <Button onClick={() => setIsModalOpened(true)}>
-            Subscribe to the newsletter <span>&rarr;</span>
+           
+
+             Explore Machinesr <span>&rarr;</span>
           </Button>
           <NextLink href="#whitepaper" passHref>
             <Button transparent>
-              Features <span>&rarr;</span>
+              Download Brochure <span>&rarr;</span>
             </Button>
           </NextLink>
         </CustomButtonGroup>
@@ -96,14 +99,22 @@ const CustomOverTitle = styled(OverTitle)`
 `;
 
 const Heading = styled.h1`
-  font-size: 7.2rem;
+  font-size: 5.2rem;
   font-weight: bold;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 4rem;
   letter-spacing: -0.03em;
 
   ${media('<=tablet')} {
-    font-size: 4.6rem;
+    font-size: 3.6rem;
     margin-bottom: 2rem;
   }
+`;
+
+const HighlightText = styled.span`
+  background: linear-gradient(135deg, #2563eb 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
 `;
