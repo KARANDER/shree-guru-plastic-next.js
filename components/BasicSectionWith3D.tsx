@@ -1,33 +1,41 @@
 import { motion, useInView } from 'framer-motion';
-import NextImage from 'next/image';
 import React, { PropsWithChildren, useRef } from 'react';
 import styled from 'styled-components';
 import { media } from 'utils/media';
 import Container from './Container';
+import Model3D from './Model3D';
 import OverTitle from './OverTitle';
 import RichText from './RichText';
 
-export interface BasicSectionProps {
-  imageUrl: string;
+export interface BasicSectionWith3DProps {
   title: string;
   overTitle: string;
   reversed?: boolean;
+  modelWidth?: string;
+  modelHeight?: string;
 }
 
-export default function BasicSection({ imageUrl, title, overTitle, reversed, children }: PropsWithChildren<BasicSectionProps>) {
+export default function BasicSectionWith3D({ 
+  title, 
+  overTitle, 
+  reversed, 
+  modelWidth = "100%", 
+  modelHeight = "400px",
+  children 
+}: PropsWithChildren<BasicSectionWith3DProps>) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <BasicSectionWrapper ref={ref} reversed={reversed}>
-      <ImageContainer
+      <ModelContainer
         as={motion.div}
         initial={{ opacity: 0, x: reversed ? 50 : -50 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reversed ? 50 : -50 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <NextImage src={imageUrl} alt={title} layout="fill" objectFit="cover" />
-      </ImageContainer>
+        <Model3D width={modelWidth} height={modelHeight} />
+      </ModelContainer>
       <ContentContainer
         as={motion.div}
         initial={{ opacity: 0, x: reversed ? -50 : 50 }}
@@ -79,24 +87,11 @@ const CustomOverTitle = styled(OverTitle)`
   margin-bottom: 2rem;
 `;
 
-const ImageContainer = styled.div`
+const ModelContainer = styled.div`
   flex: 1;
-
-  position: relative;
-  &:before {
-    display: block;
-    content: '';
-    width: 100%;
-    padding-top: calc((9 / 16) * 100%);
-  }
-
-  & > div {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${media('<=desktop')} {
     width: 100%;
@@ -107,20 +102,20 @@ const ContentContainer = styled.div`
   flex: 1;
 `;
 
-type Props = Pick<BasicSectionProps, 'reversed'>;
+type Props = Pick<BasicSectionWith3DProps, 'reversed'>;
 const BasicSectionWrapper = styled(Container)`
   display: flex;
   align-items: center;
   flex-direction: ${(p: Props) => (p.reversed ? 'row-reverse' : 'row')};
 
-  ${ImageContainer} {
+  ${ModelContainer} {
     margin: ${(p: Props) => (p.reversed ? '0 0 0 5rem' : '0 5rem 0 0')};
   }
 
   ${media('<=desktop')} {
     flex-direction: column;
 
-    ${ImageContainer} {
+    ${ModelContainer} {
       margin: 0 0 2.5rem 0;
     }
   }

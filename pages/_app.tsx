@@ -55,17 +55,22 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Navbar items={navItems} />
         <TinaEditProvider
           editMode={
-            <TinaCMS
-              query={pageProps.query}
-              variables={pageProps.variables}
-              data={pageProps.data}
-              isLocalClient={!process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
-              branch={process.env.NEXT_PUBLIC_EDIT_BRANCH}
-              clientId={process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
-              {...pageProps}
-            >
-              {(livePageProps: any) => <Component {...livePageProps} />}
-            </TinaCMS>
+            typeof window !== 'undefined' && pageProps.data ? (
+              <TinaCMS
+                apiURL={process.env.NEXT_PUBLIC_TINA_CLIENT_ID ? `https://content.tinajs.io/content/${process.env.NEXT_PUBLIC_TINA_CLIENT_ID}/github/${process.env.NEXT_PUBLIC_EDIT_BRANCH}` : 'http://localhost:4001/graphql'}
+                query={pageProps.query}
+                variables={pageProps.variables}
+                data={pageProps.data}
+                isLocalClient={!process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
+                branch={process.env.NEXT_PUBLIC_EDIT_BRANCH}
+                clientId={process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
+                {...pageProps}
+              >
+                {(livePageProps: any) => <Component {...livePageProps} />}
+              </TinaCMS>
+            ) : (
+              <Component {...pageProps} />
+            )
           }
         >
           <Component {...pageProps} />

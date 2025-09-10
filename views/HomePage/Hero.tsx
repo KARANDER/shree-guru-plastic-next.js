@@ -1,4 +1,6 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
 import NextLink from 'next/link';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import Button from 'components/Button';
 import ButtonGroup from 'components/ButtonGroup';
@@ -10,18 +12,56 @@ import { media } from 'utils/media';
 
 export default function Hero() {
   const { setIsModalOpened } = useNewsletterModalContext();
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   return (
-    <HeroWrapper>
-      <Contents>
-        <CustomOverTitle>precision engineering for modern manufacturing</CustomOverTitle>
-        <Heading>
+    <HeroWrapper ref={heroRef}>
+      <Contents
+        as={motion.div}
+        style={{ y, opacity }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        <CustomOverTitle
+          as={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          precision engineering for modern manufacturing
+        </CustomOverTitle>
+        <Heading
+          as={motion.h1}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
           Powering Modern Industry with <HighlightText>High-Performance Electroplating</HighlightText> Machines
         </Heading>
-        <Description>
+        <Description
+          as={motion.p}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+        >
           Shree Guru Plastic delivers durable, efficient and customized machines trusted by top manufacturers.
         </Description>
-        <CustomButtonGroup>
+        <CustomButtonGroup
+          as={motion.div}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
           <Button onClick={() => setIsModalOpened(true)}>
            
 
@@ -34,9 +74,14 @@ export default function Hero() {
           </NextLink>
         </CustomButtonGroup>
       </Contents>
-      <ImageContainer>
+      <ImageMotionContainer
+        style={{ y: imageY }}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.0, duration: 0.8 }}
+      >
         <HeroIllustration />
-      </ImageContainer>
+      </ImageMotionContainer>
     </HeroWrapper>
   );
 }
@@ -65,7 +110,7 @@ const CustomButtonGroup = styled(ButtonGroup)`
   margin-top: 4rem;
 `;
 
-const ImageContainer = styled.div`
+const ImageMotionContainer = styled(motion.div)`
   display: flex;
   flex: 1;
   justify-content: flex-end;

@@ -2,6 +2,8 @@ import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 import BasicSection from 'components/BasicSection';
+import BasicSectionWith3D from 'components/BasicSectionWith3D';
+
 import { EnvVars } from 'env';
 import { getAllPosts } from 'utils/postsFetcher';
 import Cta from 'views/HomePage/Cta';
@@ -23,11 +25,11 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
       <HomepageWrapper>
         <WhiteBackgroundContainer>
           <Hero />
-          <BasicSection imageUrl="/demo-illustration-1.svg" title="Why Choose Us " overTitle="Our Commitment">
+          <BasicSectionWith3D title="Why Choose Us " overTitle="Our Commitment" modelHeight="450px">
             <p>
               Our company is dedicated to providing the highest quality electroplating machinery, tailored to your needs. With years of experience, a skilled team, and a focus on customer support, we ensure your business runs smoothly and efficiently. Choose us for reliability, innovation, and a partnership that puts your success first.
             </p>
-          </BasicSection>
+          </BasicSectionWith3D>
           <BasicSection imageUrl="/demo-illustration-2.svg" title="Quality is Our Top Priority" overTitle="Creating a Lasting Impact" reversed>
             <p>
               At Shree Guru Plastic, we deliver premium electroplating machinery that meets the highest industry standards. Our skilled team and modern technology ensure excellence in every product.
@@ -41,6 +43,14 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
             </ul>
           </BasicSection>
         </WhiteBackgroundContainer>
+        
+        {/* <ParallaxBanner
+          backgroundImage="/demo-illustration-2.svg"
+          title="Transform Your Manufacturing Process"
+          subtitle="Experience the power of precision electroplating technology"
+          height="60vh"
+        /> */}
+        
         <DarkerBackgroundContainer>
           <Cta />
           <FeaturesGallery />
