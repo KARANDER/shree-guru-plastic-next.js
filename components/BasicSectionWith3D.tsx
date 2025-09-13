@@ -15,13 +15,13 @@ export interface BasicSectionWith3DProps {
   modelHeight?: string;
 }
 
-export default function BasicSectionWith3D({ 
-  title, 
-  overTitle, 
-  reversed, 
-  modelWidth = "100%", 
+export default function BasicSectionWith3D({
+  title,
+  overTitle,
+  reversed,
+  modelWidth = "100%",
   modelHeight = "400px",
-  children 
+  children
 }: PropsWithChildren<BasicSectionWith3DProps>) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });

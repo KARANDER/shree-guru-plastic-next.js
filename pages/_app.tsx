@@ -20,12 +20,32 @@ import { NewsletterModalContextProvider, useNewsletterModalContext } from 'conte
 import { NavItems } from 'types';
 
 const navItems: NavItems = [
-  { title: 'Home', href: '/features' },
-  { title: 'About', href: '/pricing' },
-  { title: 'Category', href: '/contact' },
-  { title: 'Our Products', href: '/contact' },
+  { title: 'Home', href: '/' },
+  { title: 'About', href: '/about' },
+  { 
+    title: 'Category', 
+    href: '/category',
+    dropdown: [
+      {
+        title: 'Electroplating Tank',
+        href: '/category/electroplating-tank',
+        description: 'Chrome, Nickel, and Precious Metal Plating Systems'
+      },
+      {
+        title: 'Electroplating Drier',
+        href: '/category/electroplating-drier',
+        description: 'Centrifugal and Hot Air Drying Solutions'
+      },
+      {
+        title: 'Filtration Systems',
+        href: '/category/filtration-systems',
+        description: 'Cartridge, Bag, and Ultra Filtration'
+      }
+    ]
+  },
+  { title: 'Our Products', href: '/products' },
   { title: 'FAQ', href: '/faq' },
-  { title: 'Contact Us', href: '/sign-up', outlined: true },
+  { title: 'Contact Us', href: '/contact', outlined: true },
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
@@ -75,6 +95,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         >
           <Component {...pageProps} />
         </TinaEditProvider>
+        
         <WaveCta />
         <Footer />
       </Providers>

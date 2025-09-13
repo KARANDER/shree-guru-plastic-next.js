@@ -10,7 +10,6 @@ import Cta from 'views/HomePage/Cta';
 import Features from 'views/HomePage/Features';
 import FeaturesGallery from 'views/HomePage/FeaturesGallery';
 import Hero from 'views/HomePage/Hero';
-import ScrollableBlogPosts from 'views/HomePage/ScrollableBlogPosts';
 
 export default function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -43,19 +42,18 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
             </ul>
           </BasicSection>
         </WhiteBackgroundContainer>
-        
+
         {/* <ParallaxBanner
           backgroundImage="/demo-illustration-2.svg"
           title="Transform Your Manufacturing Process"
           subtitle="Experience the power of precision electroplating technology"
           height="60vh"
         /> */}
-        
+
         <DarkerBackgroundContainer>
           <Cta />
           <FeaturesGallery />
           <Features />
-          <ScrollableBlogPosts posts={posts} />
         </DarkerBackgroundContainer>
       </HomepageWrapper>
     </>

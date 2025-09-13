@@ -10,25 +10,25 @@ import { media } from 'utils/media';
 
 const TABS = [
   {
-    title: 'Chrome & Nickel Plating Systems',
+    title: 'Electroplating Tank',
     description:
-      '<p>Decorative chrome, hard chrome applications, bright nickel, satin nickel, and multi-layer systems. Perfect for automotive parts, hardware, and industrial components requiring superior durability and finish.</p>',
+      '<p><strong>Chrome & Nickel Plating Systems:</strong> Decorative chrome, hard chrome applications, bright nickel, satin nickel, and multi-layer systems.</p><p><strong>Precious Metal Plating:</strong> Gold plating for jewelry and electronics, copper & brass systems for electrical conductivity applications.</p><p><strong>Specialized Tanks:</strong> Multi-purpose tanks for various metals with precise coating control and superior finishes.</p>',
     imageUrl: '/demo-illustration-3.png',
     baseColor: '249,82,120',
     secondColor: '221,9,57',
   },
   {
-    title: 'Precious Metal Plating Solutions',
+    title: 'Electroplating Drier',
     description:
-      '<p>Gold plating for jewelry and electronics, copper & brass systems for electrical conductivity applications. Premium finishes for high-value components with precise coating control.</p>',
+      '<p><strong>Centrifugal Dryers:</strong> High-speed spinning technology for efficient water removal and faster drying cycles.</p><p><strong>Hot Air Dryers:</strong> Energy-efficient heating systems for post-plating processing and component finishing.</p><p><strong>Combined Systems:</strong> Integrated drying solutions that reduce cycle times and improve overall productivity.</p>',
     imageUrl: '/demo-illustration-4.png',
     baseColor: '57,148,224',
     secondColor: '99,172,232',
   },
   {
-    title: 'Complete Processing Systems',
+    title: 'Filtration Systems',
     description:
-      '<p>Multi-purpose tanks for various metals, advanced filtration systems (cartridge, bag, ultra filters), and efficient dryers (centrifugal & hot air) for complete electroplating solutions.</p>',
+      '<p><strong>Cartridge Filters:</strong> High-precision filtration for removing particles and maintaining solution purity.</p><p><strong>Bag Filters:</strong> Cost-effective filtration solutions for large-volume processing applications.</p><p><strong>Ultra Filters:</strong> Advanced membrane technology for ultra-clean solutions and consistent plating quality.</p>',
     imageUrl: '/demo-illustration-5.png',
     baseColor: '88,193,132',
     secondColor: '124,207,158',

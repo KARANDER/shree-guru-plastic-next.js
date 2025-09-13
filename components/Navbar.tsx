@@ -88,8 +88,9 @@ export default function Navbar({ items }: NavbarProps) {
   );
 }
 
-function NavItem({ href, title, outlined }: SingleNavItem) {
+function NavItem({ href, title, outlined, dropdown }: SingleNavItem) {
   const { setIsModalOpened } = useNewsletterModalContext();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   function showNewsletterModal() {
     setIsModalOpened(true);
@@ -97,6 +98,38 @@ function NavItem({ href, title, outlined }: SingleNavItem) {
 
   if (outlined) {
     return <CustomButton onClick={showNewsletterModal}>{title}</CustomButton>;
+  }
+
+  if (dropdown) {
+    return (
+      <DropdownContainer
+        onMouseEnter={() => setIsDropdownOpen(true)}
+        onMouseLeave={() => setIsDropdownOpen(false)}
+      >
+        <NavItemWrapper outlined={outlined}>
+          <NextLink href={href} passHref>
+            <a>
+              {title}
+              <DropdownArrow isOpen={isDropdownOpen}>▼</DropdownArrow>
+            </a>
+          </NextLink>
+        </NavItemWrapper>
+        <DropdownMenu isOpen={isDropdownOpen}>
+          {dropdown.map((item) => (
+            <DropdownMenuItem key={item.href}>
+              <NextLink href={item.href} passHref>
+                <DropdownLink>
+                  <DropdownTitle>{item.title}</DropdownTitle>
+                  {item.description && (
+                    <DropdownDescription>{item.description}</DropdownDescription>
+                  )}
+                </DropdownLink>
+              </NextLink>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenu>
+      </DropdownContainer>
+    );
   }
 
   return (
@@ -160,6 +193,90 @@ const NavItemWrapper = styled.li<Partial<SingleNavItem>>`
   &:not(:last-child) {
     margin-right: 2rem;
   }
+`;
+
+const DropdownContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const DropdownArrow = styled.span<{ isOpen: boolean }>`
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+  transform: ${(p) => (p.isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+  transition: transform 0.2s ease;
+`;
+
+const DropdownMenu = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 280px;
+  background: rgb(var(--background));
+  border: 1px solid rgb(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  opacity: ${(p) => (p.isOpen ? 1 : 0)};
+  visibility: ${(p) => (p.isOpen ? 'visible' : 'hidden')};
+  transform: ${(p) => (p.isOpen ? 'translateY(0)' : 'translateY(-10px)')};
+  transition: all 0.2s ease;
+  z-index: 1000;
+  padding: 1rem 0;
+
+  ${media('<desktop')} {
+    display: none;
+  }
+`;
+
+const DropdownMenuItem = styled.div`
+  padding: 0;
+  margin: 0;
+`;
+
+const DropdownLink = styled.a`
+  display: block !important;
+  padding: 1rem 1.5rem !important;
+  text-decoration: none;
+  color: rgb(var(--text)) !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  line-height: 1.4 !important;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgb(var(--primary), 0.1), rgb(var(--primary), 0.2));
+    transition: width 0.4s ease;
+    z-index: -1;
+  }
+  
+  &:hover {
+    color: rgb(var(--primary)) !important;
+    
+    &::before {
+      width: 100%;
+    }
+  }
+`;
+
+const DropdownTitle = styled.div`
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+  color: rgb(var(--text));
+`;
+
+const DropdownDescription = styled.div`
+  font-size: 1.2rem;
+  color: rgb(var(--textSecondary));
+  font-weight: 400;
 `;
 
 const NavbarContainer = styled.div<NavbarContainerProps>`
